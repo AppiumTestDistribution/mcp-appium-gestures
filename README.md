@@ -1,19 +1,27 @@
 # MCP Appium Gestures
 
-An MCP (Model Context Protocol) server that provides resources and tools for Appium mobile gestures.
+An MCP (Model Context Protocol) server providing resources and tools for Appium mobile gestures.
 
-## Overview
+## Features
 
-This MCP server provides:
+- Documentation resources for common Appium mobile gestures:
+  - Tap
+  - Swipe
+  - Scroll
+  - Pinch/Zoom
+  - Long Press
+  - Drag and Drop
+  - Double Tap
 
-1. **Documentation Resources** - Detailed information about common Appium gestures
-2. **Code Generation Tools** - Tools to generate code snippets for various gestures
+- Tools to generate code for these gestures in different languages:
+  - JavaScript (WebdriverIO v9+ and below)
+  - Java (Appium Java Client)
 
 ## Installation
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/yourusername/mcp-appium-gestures.git
 cd mcp-appium-gestures
 
 # Install dependencies
@@ -22,143 +30,110 @@ npm install
 
 ## Usage
 
-### Starting the Server
+### Start with stdio transport (for local use)
 
 ```bash
+# Start the server with stdio transport
 npm start
+# or
+npm run start:stdio
 ```
 
-This will start the MCP server using stdio transport, which allows it to be used as a command-line tool.
+### Start with SSE transport (for remote use)
 
-### Available Resources
+```bash
+# Start the server with SSE transport on default port (8080)
+npm run start:sse
 
-The server provides documentation resources for common Appium gestures:
+# Start the server with SSE transport on a custom port
+npm run start:sse:port 3000
+```
+
+### Development and Testing
+
+```bash
+# Test with mcp-cli
+npm run dev
+
+# Inspect with MCP Inspector
+npm run inspect
+```
+
+## Resources
+
+The server provides documentation resources for the following gestures:
 
 - `gesture://tap` - Tap gesture documentation
-- `gesture://swipe` - Swipe gesture documentation (horizontal and vertical)
+- `gesture://swipe` - Swipe gesture documentation
 - `gesture://scroll` - Scroll gesture documentation
 - `gesture://pinch-zoom` - Pinch and zoom gestures documentation
 - `gesture://long-press` - Long press gesture documentation
 - `gesture://drag-drop` - Drag and drop gesture documentation
 - `gesture://double-tap` - Double tap gesture documentation
 
-You can also access a specific gesture by name using the dynamic resource:
+You can also access a specific gesture by name using the template: `gesture://{name}`
 
-- `gesture://{name}` - Where `{name}` is one of: tap, swipe, scroll, pinch-zoom, long-press, drag-drop, double-tap
+## Tools
 
-### Available Tools
+The server provides the following tools to generate code for Appium gestures:
 
-The server provides tools to generate code snippets for various gestures:
+### generate-tap-code
 
-#### generate-tap-code
-
-Generates code for a tap gesture.
+Generates code for tap gesture.
 
 Parameters:
+- `language`: 'javascript' or 'java'
+- `useElement`: boolean - whether to tap on an element or at coordinates
+- `elementId`: string (required if useElement is true) - the element ID to tap on
+- `x`: number (required if useElement is false) - x coordinate to tap at
+- `y`: number (required if useElement is false) - y coordinate to tap at
 
-- `language` (required): "javascript" or "java"
-- `useElement` (required): boolean - whether to tap on an element or coordinates
-- `elementId` (optional): string - the ID of the element to tap (required if useElement is true)
-- `x` (optional): number - x coordinate (required if useElement is false)
-- `y` (optional): number - y coordinate (required if useElement is false)
+### generate-swipe-code
 
-#### generate-swipe-code
-
-Generates code for a swipe gesture.
-
-Parameters:
-
-- `language` (required): "javascript" or "java"
-- `startX` (required): number - starting x coordinate
-- `startY` (required): number - starting y coordinate
-- `endX` (required): number - ending x coordinate
-- `endY` (required): number - ending y coordinate
-- `duration` (optional): number - swipe duration in milliseconds (default: 500)
-
-#### generate-scroll-code
-
-Generates code for a scroll gesture.
+Generates code for swipe gesture.
 
 Parameters:
+- `language`: 'javascript' or 'java'
+- `startX`: number - starting x coordinate
+- `startY`: number - starting y coordinate
+- `endX`: number - ending x coordinate
+- `endY`: number - ending y coordinate
+- `duration`: number (optional, default: 500) - duration of the swipe in milliseconds
 
-- `language` (required): "javascript" or "java"
-- `direction` (required): "up", "down", "left", or "right"
-- `useElement` (optional): boolean - whether to scroll to an element (default: false)
-- `elementId` (optional): string - the ID of the element to scroll to (required if useElement is true)
-- `distance` (optional): number - scroll distance in pixels (default: 300)
+### generate-scroll-code
 
-#### generate-long-press-code
-
-Generates code for a long press gesture.
-
-Parameters:
-
-- `language` (required): "javascript" or "java"
-- `useElement` (required): boolean - whether to long press on an element or coordinates
-- `elementId` (optional): string - the ID of the element to long press (required if useElement is true)
-- `x` (optional): number - x coordinate (required if useElement is false)
-- `y` (optional): number - y coordinate (required if useElement is false)
-- `duration` (optional): number - press duration in milliseconds (default: 2000)
-
-#### generate-double-tap-code
-
-Generates code for a double tap gesture.
+Generates code for scroll gesture.
 
 Parameters:
+- `language`: 'javascript' or 'java'
+- `direction`: 'up', 'down', 'left', or 'right'
+- `useElement`: boolean (optional, default: false) - whether to scroll to an element
+- `elementId`: string (optional) - the element ID to scroll to
+- `distance`: number (optional, default: 300) - distance to scroll
 
-- `language` (required): "javascript" or "java"
-- `useElement` (required): boolean - whether to double tap on an element or coordinates
-- `elementId` (optional): string - the ID of the element to double tap (required if useElement is true)
-- `x` (optional): number - x coordinate (required if useElement is false)
-- `y` (optional): number - y coordinate (required if useElement is false)
-- `pauseDuration` (optional): number - pause duration between taps in milliseconds (default: 200)
+### generate-long-press-code
 
-## Usage with Cline
+Generates code for long press gesture.
 
-To use this MCP server with Cline, you have two options:
+Parameters:
+- `language`: 'javascript' or 'java'
+- `useElement`: boolean - whether to long press on an element or at coordinates
+- `elementId`: string (required if useElement is true) - the element ID to long press on
+- `x`: number (required if useElement is false) - x coordinate to long press at
+- `y`: number (required if useElement is false) - y coordinate to long press at
+- `duration`: number (optional, default: 2000) - duration of the long press in milliseconds
 
-### Option 1: Install the package globally
+### generate-double-tap-code
 
-```bash
-# From the project directory
-npm install -g .
-```
+Generates code for double tap gesture.
 
-Then add the following configuration to your Cline MCP settings file:
-
-```json
-"mcp-gestures": {
-  "autoApprove": [],
-  "disabled": false,
-  "timeout": 300,
-  "command": "npx",
-  "args": [
-    "mcp-appium-gestures"
-  ],
-  "transportType": "stdio"
-}
-```
-
-### Option 2: Use direct path to index.js
-
-Add the following configuration to your Cline MCP settings file:
-
-```json
-"mcp-gestures": {
-  "autoApprove": [],
-  "disabled": false,
-  "timeout": 300,
-  "command": "node",
-  "args": [
-    "/path/to/your/workspace/mcp-appium-gestures/src/index.js"
-  ],
-  "transportType": "stdio"
-}
-```
-
-Make sure to replace `/path/to/your/workspace` with the actual path to your project directory.
-
-Once configured, you can use the MCP server in Cline by referencing it in your conversations.
+Parameters:
+- `language`: 'javascript' or 'java'
+- `useElement`: boolean - whether to double tap on an element or at coordinates
+- `elementId`: string (required if useElement is true) - the element ID to double tap on
+- `x`: number (required if useElement is false) - x coordinate to double tap at
+- `y`: number (required if useElement is false) - y coordinate to double tap at
+- `pauseDuration`: number (optional, default: 200) - pause duration between taps in milliseconds
 
 ## License
 

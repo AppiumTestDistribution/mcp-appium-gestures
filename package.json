@@ -8,13 +8,19 @@
   },
   "scripts": {
     "start": "node src/index.js",
+    "start:stdio": "node src/index.js",
+    "start:sse": "node src/index.js --sse",
+    "start:sse:port": "node src/index.js --sse --port=",
+    "dev": "npx fastmcp dev src/index.js",
+    "inspect": "npx fastmcp inspect src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "description": "MCP server providing resources and tools for Appium mobile gestures",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.11.0",
+    "fastmcp": "^1.23.2",
     "zod": "^3.24.3"
   }
 }
