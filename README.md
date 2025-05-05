@@ -75,9 +75,11 @@ Add the following configuration to the `mcpServers` object in the settings file:
   "mcpServers": {
     "appium-gestures": {
       "command": "npx",
+      "disabled": false,
       "args": ["mcp-appium-gestures"],
       "autoApprove": [],
-      "timeout": 300
+      "timeout": 300,
+      "transportType": "stdio"
     }
   }
 }
