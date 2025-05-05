@@ -5,6 +5,7 @@ An MCP (Model Context Protocol) server providing resources and tools for Appium 
 ## Features
 
 - Documentation resources for common Appium mobile gestures:
+
   - Tap
   - Swipe
   - Scroll
@@ -59,6 +60,54 @@ npm run dev
 npm run inspect
 ```
 
+## Usage with Claude
+
+To use this MCP server with Claude, you need to add it to your MCP settings configuration file. The location of this file depends on your platform:
+
+- For Cursor: `/Users/[username]/Library/Application Support/Cursor/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
+- For Claude Desktop: `/Users/[username]/Library/Application Support/Claude/claude_desktop_config.json`
+- For Cline or other MCP clients: Check your client's documentation for the configuration file location
+
+Add the following configuration to the `mcpServers` object in the settings file:
+
+```json
+{
+  "mcpServers": {
+    "appium-gestures": {
+      "command": "npx",
+      "args": ["mcp-appium-gestures"],
+      "autoApprove": [],
+      "timeout": 300
+    }
+  }
+}
+```
+
+Once configured, you can use the MCP server's tools and resources directly in Claude:
+
+```
+<use_mcp_tool>
+<server_name>appium-gestures</server_name>
+<tool_name>generate-tap-code</tool_name>
+<arguments>
+{
+  "language": "javascript",
+  "useElement": true,
+  "elementId": "login-button"
+}
+</arguments>
+</use_mcp_tool>
+```
+
+Or access resources:
+
+```
+<access_mcp_resource>
+<server_name>appium-gestures</server_name>
+<uri>gesture://tap</uri>
+</access_mcp_resource>
+```
+
 ## Resources
 
 The server provides documentation resources for the following gestures:
@@ -82,6 +131,7 @@ The server provides the following tools to generate code for Appium gestures:
 Generates code for tap gesture.
 
 Parameters:
+
 - `language`: 'javascript' or 'java'
 - `useElement`: boolean - whether to tap on an element or at coordinates
 - `elementId`: string (required if useElement is true) - the element ID to tap on
@@ -93,6 +143,7 @@ Parameters:
 Generates code for swipe gesture.
 
 Parameters:
+
 - `language`: 'javascript' or 'java'
 - `startX`: number - starting x coordinate
 - `startY`: number - starting y coordinate
@@ -105,6 +156,7 @@ Parameters:
 Generates code for scroll gesture.
 
 Parameters:
+
 - `language`: 'javascript' or 'java'
 - `direction`: 'up', 'down', 'left', or 'right'
 - `useElement`: boolean (optional, default: false) - whether to scroll to an element
@@ -116,6 +168,7 @@ Parameters:
 Generates code for long press gesture.
 
 Parameters:
+
 - `language`: 'javascript' or 'java'
 - `useElement`: boolean - whether to long press on an element or at coordinates
 - `elementId`: string (required if useElement is true) - the element ID to long press on
@@ -128,6 +181,7 @@ Parameters:
 Generates code for double tap gesture.
 
 Parameters:
+
 - `language`: 'javascript' or 'java'
 - `useElement`: boolean - whether to double tap on an element or at coordinates
 - `elementId`: string (required if useElement is true) - the element ID to double tap on
