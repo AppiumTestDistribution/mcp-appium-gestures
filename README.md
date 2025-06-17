@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/appiumtestdistribution-mcp-appium-gestures-badge.png)](https://mseep.ai/app/appiumtestdistribution-mcp-appium-gestures)
+
 # MCP Appium Gestures
 
 An MCP (Model Context Protocol) server providing resources and tools for Appium mobile gestures.
